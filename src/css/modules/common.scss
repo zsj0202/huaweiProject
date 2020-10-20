@@ -9,6 +9,9 @@ ul,ol{
 h1,h2,h3{
     font-size : $defaultFontSize;
 }
+html{
+    overflow-x: hidden;
+}
 body{
     font-size: $defaultFontSize;
     color: $defaultColor;

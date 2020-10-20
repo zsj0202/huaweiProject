@@ -22,7 +22,7 @@ function webserverTask(){
     return src('./dist')
             .pipe( webserver({
                 host : 'localhost',
-                port : 4000,
+                port : 5000,
                 open : './view/index.html',
                 livereload : true
             }));
@@ -39,15 +39,30 @@ function staticTask(){
             .pipe(dest('./dist/static'));
 }
 
+function libTask(){
+    return src('./src/lib/**')
+            .pipe(dest('./dist/lib'));
+}
+
+function apiTask(){
+    return src('./src/api/**')
+            .pipe(dest('./dist/api'));
+}
+
+function jsTask(){
+    return src('./src/js/**')
+            .pipe(dest('./dist/js'));
+}
+
 function watchTask(){   //监听文件变化，同步到dist文件下
     watch('./src/view/**' , fileIncludeTask);
     watch('./src/css/**' , sassTask);
     watch('./src/static/**' , staticTask);
-    // watch('./src/lib/**' , libTask);
-    // watch('./src/api/**' , apiTask);
-    // watch('./src/js/**' , jsTask);
+    watch('./src/lib/**' , libTask);
+    watch('./src/api/**' , apiTask);
+    watch('./src/js/**' , jsTask);
 }
 module.exports = {
-    dev : series( cleanTask , parallel(fileIncludeTask , sassTask , staticTask) , parallel(webserverTask , watchTask)),
+    dev : series( cleanTask , parallel(fileIncludeTask , sassTask , staticTask , libTask , apiTask , jsTask) , parallel(webserverTask , watchTask)),
     build : series( cleanTask )
 };
