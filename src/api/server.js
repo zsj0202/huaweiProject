@@ -28,6 +28,16 @@ define(['jquery'], function($) {
         return promise;
     }
     
+    // 反向代理 php 页面（连接后端）
+    /* function actionLogin(){
+        return $.ajax('/api2/login.php'); //-> http://localhost/api2/login.php
+    }
+    actionLogin().then((res)=>{
+        console.log(res);
+    }).catch((err)=>{
+        console.log(err);
+    }); */
+
     return {
         getBannerData,
         getBanner2Data,
